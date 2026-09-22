@@ -1,3 +1,12 @@
+/* ===== Colori del brand =====
+   Presi dalla grafica generativa usata nel CV/portfolio ("01 - Upscale").
+   Cambiando questi valori cambia il colore ovunque nel sito. */
+:root {
+  --accent: #5729fc;       /* viola/indaco acceso — bottoni, numeri, link */
+  --accent-deep: #2a1084;  /* viola scuro — sfumature, hover */
+  --ink-deep: #09022f;     /* quasi nero-viola — sfondo hero */
+}
+
 /* ===== Reset & base ===== */
 * {
   box-sizing: border-box;
@@ -17,12 +26,14 @@ body {
 }
 
 h1, h2, h3 {
-  line-height: 1.2;
-  font-weight: 600;
+  font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin: 0 0 0.5em 0;
 }
 
-h1 { font-size: clamp(1.8rem, 4vw, 3rem); }
+h1 { font-size: clamp(2.1rem, 5vw, 3.6rem); font-weight: 900; letter-spacing: -0.02em; }
 h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 1em; }
 h3 { font-size: 1.25rem; }
 
@@ -58,7 +69,8 @@ ul {
 }
 
 .logo {
-  font-weight: 600;
+  font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 700;
   text-decoration: none;
   font-size: 1rem;
   letter-spacing: 0.02em;
@@ -116,24 +128,62 @@ ul {
   background: #efeee9;
 }
 
+/* La striscia "Aziende" si inserisce tra Servizi e Progetti: senza questa
+   riga, l'alternanza chiaro/scuro calcolata da :nth-of-type sopra
+   si sfaserebbe su tutte le sezioni successive. Fissiamo lo sfondo
+   originale per indirizzo (id), più specifico e stabile. */
+#contatti {
+  background: transparent;
+}
+
+#chi-sono {
+  background: #efeee9;
+}
+
 /* ===== Hero ===== */
 .hero {
-  padding-top: 110px;
-  padding-bottom: 110px;
+  padding-top: 130px;
+  padding-bottom: 130px;
+  max-width: none;
+  background-color: var(--ink-deep);
+  background-image: linear-gradient(180deg, rgba(9, 2, 47, 0.6), rgba(9, 2, 47, 0.82)), url("images/hero-texture.jpg");
+  background-size: cover;
+  background-position: center;
+  color: #f2f0e8;
+}
+
+.hero > .lang-block {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero h1 {
+  color: #f7f6f0;
 }
 
 .eyebrow {
+  font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   font-size: 0.8rem;
+  font-weight: 600;
   color: #6b6b6b;
   margin-bottom: 1em;
+}
+
+.hero .eyebrow {
+  color: #b9a8f5;
 }
 
 .lead {
   max-width: 640px;
   font-size: 1.1rem;
   color: #3a3a3a;
+}
+
+.hero .lead {
+  color: #cbc7ba;
 }
 
 .hero-cta {
@@ -143,23 +193,49 @@ ul {
   flex-wrap: wrap;
 }
 
+.hero .btn-primary {
+  background: #f2f0e8;
+  color: #17160f;
+  border-color: #f2f0e8;
+}
+
+.hero .btn-primary:hover {
+  background: #d8d4c4;
+  border-color: #d8d4c4;
+}
+
+.hero .btn-secondary {
+  background: transparent;
+  color: #f2f0e8;
+  border-color: #4a4838;
+}
+
+.hero .btn-secondary:hover {
+  background: #f2f0e8;
+  color: #17160f;
+  border-color: #f2f0e8;
+}
+
 .btn {
+  font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   display: inline-block;
   padding: 12px 24px;
   text-decoration: none;
-  border-radius: 2px;
+  border-radius: 8px;
   font-size: 0.95rem;
-  font-weight: 500;
+  font-weight: 700;
   border: 1px solid #1a1a1a;
 }
 
 .btn-primary {
-  background: #1a1a1a;
+  background: var(--accent-deep);
   color: #f7f6f4;
+  border-color: var(--accent-deep);
 }
 
 .btn-primary:hover {
-  background: #333;
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
 .btn-secondary {
@@ -178,6 +254,22 @@ ul {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 32px;
   margin-top: 1.5em;
+  counter-reset: servizio;
+}
+
+.servizio {
+  counter-increment: servizio;
+}
+
+.servizio::before {
+  content: "0" counter(servizio);
+  display: block;
+  font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: 0.6em;
 }
 
 .servizio h3 {
@@ -189,49 +281,223 @@ ul {
   font-size: 0.95rem;
 }
 
-/* ===== Progetti / case study ===== */
-.case-study {
-  padding: 40px 0;
-  border-top: 1px solid #d8d6cf;
+/* ===== Aziende e collaborazioni ===== */
+.brands {
+  max-width: none;
+  padding: 100px 24px;
+  background: var(--ink-deep);
+  color: #fff;
 }
 
-.case-study:first-of-type {
-  border-top: none;
+.brands-inner {
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.case-header {
+.brands h2 {
+  color: #f7f6f0;
+  /* Stessa interlinea che c'è tra "Progetti" e "Passa il cursore...":
+     margin-bottom di default (1em) sul titolo + margin-top negativo
+     (-0.5em) sull'elemento successivo = distacco netto ~0.5em. */
+}
+
+/* ===== Scorrimento infinito (marquee) =====
+   Un contenitore a larghezza fissa che ritaglia il contenuto (overflow
+   hidden) e una fila interna, doppiata identica due volte, che scorre
+   verso sinistra con un'animazione CSS lineare senza fine: quando la
+   prima metà è uscita del tutto, la seconda è già nella stessa
+   posizione di partenza, quindi il loop è invisibile. Nessun JS. */
+.brands-marquee {
+  margin-top: -0.5em;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 48px, #000 calc(100% - 48px), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 48px, #000 calc(100% - 48px), transparent);
+}
+
+.brands-track {
   display: flex;
-  align-items: baseline;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 0.8em;
+  align-items: center;
+  gap: 40px;
+  width: max-content;
+  animation: brands-scroll 24s linear infinite;
 }
 
-.case-tag {
-  color: #6b6b6b;
-  font-size: 0.9rem;
-  margin: 0;
+@keyframes brands-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Il set di nomi è duplicato una volta: -50% dell'intera fila
+       corrisponde esattamente a un giro completo del primo set. */
+    transform: translateX(-50%);
+  }
 }
 
-.case-stats {
-  margin-top: 1em;
+@media (prefers-reduced-motion: reduce) {
+  .brands-track {
+    animation: none;
+  }
+}
+
+.brand-name {
+  font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: #f2f0e8;
+  opacity: 0.9;
+  white-space: nowrap;
+}
+
+/* ===== Progetti =====
+   Griglia irregolare in stile This.design: riquadri di misure diverse,
+   senza cornice, ognuno con una sola immagine. Niente accordion — un
+   click porta alla pagina dedicata al progetto (da costruire in seguito).
+   Sfondo coordinato con la sezione Collaborazioni, quindi i testi diretti
+   (h2, hint) passano a una tinta chiara per restare leggibili sul viola
+   scuro. */
+#progetti {
+  background: var(--ink-deep);
+}
+
+#progetti h2 {
+  color: #f7f6f0;
+}
+
+.scroll-hint {
+  font-size: 0.85rem;
+  color: #b9a8f5;
+  margin-top: -0.5em;
+}
+
+.progetti-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 140px;
+  grid-auto-flow: dense;
+  gap: 20px;
+  margin-top: 1.5em;
+}
+
+/* Misure che si alternano ogni 4 riquadri, per un effetto "ordinato ma
+   caotico" invece di una griglia perfettamente allineata. Aggiungendo
+   altri progetti il pattern continua da solo, senza bisogno di ritoccare
+   il CSS. */
+.project-tile {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+
+.project-tile:nth-child(4n+1) {
+  grid-column: span 4;
+  grid-row: span 3;
+}
+
+.project-tile:nth-child(4n+2) {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.project-tile:nth-child(4n+3) {
+  grid-column: span 3;
+  grid-row: span 2;
+}
+
+.project-tile:nth-child(4n) {
+  grid-column: span 3;
+  grid-row: span 3;
+}
+
+.project-tile {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.15s ease;
+}
+
+.tile-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(
+    45deg,
+    #180f47,
+    #180f47 10px,
+    #211653 10px,
+    #211653 20px
+  );
+}
+
+.tile-placeholder span {
+  font-size: 0.8rem;
+  color: #cfc9ea;
+  background: rgba(9, 2, 47, 0.6);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* Nome + descrizione: nascosti di default, rivelati al passaggio del
+   cursore (solo su dispositivi con mouse). La foto sotto si scurisce e
+   si sfoca per fare da sfondo al testo — su touch restano sempre
+   leggibili con una sfumatura scura in basso. */
+.project-caption {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 20px;
+  color: #fff;
+  opacity: 0;
 }
 
-.case-stats li {
-  font-size: 0.95rem;
-  color: #2a2a2a;
-  padding-left: 1.1em;
-  position: relative;
+@media (hover: hover) and (pointer: fine) {
+  .project-caption {
+    transition: opacity 0.15s ease;
+  }
+
+  .project-tile:hover .project-caption,
+  .project-tile:focus-visible .project-caption {
+    opacity: 1;
+  }
+
+  .project-tile:hover img,
+  .project-tile:focus-visible img {
+    filter: brightness(0.55) blur(3px);
+  }
 }
 
-.case-stats li::before {
-  content: "—";
-  position: absolute;
-  left: 0;
-  color: #a3572e;
+@media not all and (hover: hover) {
+  .project-caption {
+    opacity: 1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.78) 100%);
+  }
+}
+
+.project-caption-title {
+  font-family: "Archivo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.01em;
+}
+
+.project-caption-sub {
+  font-size: 0.9rem;
+  color: #eeeeee;
 }
 
 /* ===== Chi sono / Contatti ===== */
@@ -279,5 +545,19 @@ ul {
 
   .section {
     padding: 56px 20px;
+  }
+
+  .progetti-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-tile,
+  .project-tile:nth-child(4n+1),
+  .project-tile:nth-child(4n+2),
+  .project-tile:nth-child(4n+3),
+  .project-tile:nth-child(4n) {
+    grid-column: span 1;
+    grid-row: auto;
+    aspect-ratio: 4 / 3;
   }
 }
