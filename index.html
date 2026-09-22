@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simone Perini — Product & Computational Designer</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#hero" class="logo">Simone Perini</a>
+    <nav class="main-nav">
+      <a href="#servizi"><span class="it">Servizi</span><span class="en" hidden>Services</span></a>
+      <a href="#progetti"><span class="it">Progetti</span><span class="en" hidden>Projects</span></a>
+      <a href="#chi-sono"><span class="it">Chi sono</span><span class="en" hidden>About</span></a>
+      <a href="#contatti"><span class="it">Contatti</span><span class="en" hidden>Contact</span></a>
+    </nav>
+    <div class="lang-switch">
+      <button id="lang-it" class="lang-btn active" type="button">IT</button>
+      <span aria-hidden="true">/</span>
+      <button id="lang-en" class="lang-btn" type="button">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero" class="section hero">
+    <div class="lang-block it">
+      <p class="eyebrow">Product &amp; Computational Designer — Bologna</p>
+      <h1>Progetto prodotti e ottimizzo processi produttivi, dalla protesica al design parametrico.</h1>
+      <p class="lead">Porto la modellazione parametrica e l'ottimizzazione dei processi dentro il vostro prodotto — con risultati misurabili, non promesse. Collaboro con aziende e università su progetti di design computazionale e stampa 3D.</p>
+      <div class="hero-cta">
+        <a href="#progetti" class="btn btn-primary">Guarda i progetti</a>
+        <a href="#contatti" class="btn btn-secondary">Contattami</a>
+      </div>
+    </div>
+    <div class="lang-block en" hidden>
+      <p class="eyebrow">Product &amp; Computational Designer — Bologna, Italy</p>
+      <h1>I design products and optimize production processes, from prosthetics to parametric design.</h1>
+      <p class="lead">I bring parametric modeling and process optimization into your product — with measurable results, not promises. I collaborate with companies and universities on computational design and 3D printing projects.</p>
+      <div class="hero-cta">
+        <a href="#progetti" class="btn btn-primary">See the projects</a>
+        <a href="#contatti" class="btn btn-secondary">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIZI -->
+  <section id="servizi" class="section servizi">
+    <div class="lang-block it">
+      <h2>Servizi</h2>
+      <div class="servizi-grid">
+        <article class="servizio">
+          <h3>Progettazione parametrica e computazionale</h3>
+          <p>Sviluppo algoritmi e sistemi generativi (Grasshopper) per prodotti che richiedono personalizzazione su misura, ripetibilità e controllo geometrico complesso.</p>
+        </article>
+        <article class="servizio">
+          <h3>Progettazione per la stampa 3D</h3>
+          <p>Design pensato fin dall'inizio per la manifattura additiva: geometrie, materiali e post-processing per passare dal file al pezzo finito senza sorprese.</p>
+        </article>
+        <article class="servizio">
+          <h3>Ottimizzazione di processi produttivi</h3>
+          <p>Analisi e riscrittura di flussi di lavoro artigianali o semi-manuali in sistemi digitali ripetibili. Esempio concreto: <a href="#discover">DisCover</a>, da 2-3 giorni a 2-3 ore per pezzo.</p>
+        </article>
+        <article class="servizio">
+          <h3>Collaborazioni R&amp;D</h3>
+          <p>Progetti di ricerca e sviluppo con aziende e università, dal concept alla validazione, su temi di design parametrico, materiali e manifattura additiva.</p>
+        </article>
+        <article class="servizio">
+          <h3>Corsi di formazione Rhino &amp; Grasshopper</h3>
+          <p>Percorsi formativi su modellazione parametrica per aziende e neolaureati, basati sull'esperienza diretta su progetti reali (es. corso di 32 ore per Ferrino Group).</p>
+        </article>
+      </div>
+    </div>
+    <div class="lang-block en" hidden>
+      <h2>Services</h2>
+      <div class="servizi-grid">
+        <article class="servizio">
+          <h3>Parametric &amp; Computational Design</h3>
+          <p>I develop algorithms and generative systems (Grasshopper) for products that require custom personalization, repeatability, and complex geometric control.</p>
+        </article>
+        <article class="servizio">
+          <h3>Design for 3D Printing</h3>
+          <p>Products designed from the start for additive manufacturing: geometry, materials, and post-processing to go from file to finished part with no surprises.</p>
+        </article>
+        <article class="servizio">
+          <h3>Production Process Optimization</h3>
+          <p>Analysis and rewriting of manual or semi-manual workflows into repeatable digital systems. Concrete example: <a href="#discover">DisCover</a>, from 2-3 days to 2-3 hours per part.</p>
+        </article>
+        <article class="servizio">
+          <h3>R&amp;D Collaborations</h3>
+          <p>Research and development projects with companies and universities, from concept to validation, on parametric design, materials and additive manufacturing.</p>
+        </article>
+        <article class="servizio">
+          <h3>Rhino &amp; Grasshopper Training</h3>
+          <p>Training courses on parametric modeling for companies and recent graduates, grounded in direct experience on real projects (e.g. a 32-hour course for Ferrino Group).</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGETTI -->
+  <section id="progetti" class="section progetti">
+    <div class="lang-block it">
+      <h2>Progetti</h2>
+
+      <article id="d-pulp" class="case-study">
+        <div class="case-header">
+          <h3>D-Pulp</h3>
+          <p class="case-tag">Sistema parametrico per protesi mioelettriche di arto superiore</p>
+        </div>
+        <p>Al Centro Protesi INAIL, il processo tradizionale di realizzazione di una protesi mioelettrica richiede 20-25 ore lavorative per tecnico, di cui almeno metà nella sola fase di laminazione e lavorazione manuale. D-Pulp sostituisce quella fase con scansione 3D, modellazione parametrica e stampa in poliammide 12.</p>
+        <ul class="case-stats">
+          <li><strong>Da 10-12 ore a max 3 ore</strong> di lavoro tecnico nella fase sostituita</li>
+          <li><strong>Da €560 a €369</strong> di costo medio (primi 5 anni), <strong>€266</strong> a regime</li>
+          <li>James Dyson Award Italia · iF Design Award · Cybathlon 2024</li>
+        </ul>
+      </article>
+
+      <article id="discover" class="case-study">
+        <div class="case-header">
+          <h3>DisCover</h3>
+          <p class="case-tag">Configuratore per cover protesiche personalizzate</p>
+        </div>
+        <p>Ho ripreso in mano l'algoritmo di configurazione delle cover per protesi transfemorali, riscrivendolo da zero: da prototipo sperimentale a strumento di produzione usato quotidianamente dai tecnici ortopedici del Centro Protesi INAIL.</p>
+        <ul class="case-stats">
+          <li><strong>Da 2-3 giorni a 2-3 ore</strong> per modellare una cover</li>
+          <li>Cover prodotta internamente: <strong>~€369</strong> vs <strong>€800-1100</strong> di fornitori esterni</li>
+        </ul>
+      </article>
+
+      <article id="metamorfosi" class="case-study">
+        <div class="case-header">
+          <h3>Metamorfosi</h3>
+          <p class="case-tag">Design: Cristian Li Voi &amp; Simone Perini · con Revet e UniGe</p>
+        </div>
+        <p>Quattro colonne stampate in 3D con plastica riciclata dagli oceani, ciascuna costruita attorno a un dato scientifico sulla crisi dell'inquinamento marino: dai 150 milioni di tonnellate di plastica in mare alle 700 specie minacciate. Esposte alla Genova Design Week.</p>
+      </article>
+
+      <article id="dali" class="case-study">
+        <div class="case-header">
+          <h3>Dalí</h3>
+          <p class="case-tag">Interfaccia custom tra ventilatore polmonare e paziente</p>
+        </div>
+        <p>Per pazienti con distrofia muscolare (es. Duchenne — 1,7-3,4 casi su 100.000 in Italia), l'alternativa era una mascherina home-made assemblata dai familiari. Dalí nasce da scansione 3D del volto, modellazione dei componenti funzionali e telaio stampato in 3D con cuscino in silicone su misura.</p>
+        <ul class="case-stats">
+          <li>Non un prototipo: <strong>in uso da oltre 2 anni</strong> da pazienti reali, con ottimo riscontro</li>
+          <li>Produzione dedicata, in piccola serie, data la rarità della patologia in Italia</li>
+        </ul>
+      </article>
+    </div>
+
+    <div class="lang-block en" hidden>
+      <h2>Projects</h2>
+
+      <article class="case-study">
+        <div class="case-header">
+          <h3>D-Pulp</h3>
+          <p class="case-tag">Parametric system for upper-limb myoelectric prosthetics</p>
+        </div>
+        <p>At Centro Protesi INAIL, the traditional process for building a myoelectric prosthesis takes 20-25 working hours per technician, at least half of it spent on manual lamination and finishing alone. D-Pulp replaces that phase with 3D scanning, parametric modeling, and polyamide 12 printing.</p>
+        <ul class="case-stats">
+          <li><strong>From 10-12 hours to max 3 hours</strong> of technician work in the replaced phase</li>
+          <li><strong>From €560 to €369</strong> average cost (first 5 years), <strong>€266</strong> after</li>
+          <li>James Dyson Award Italy · iF Design Award · Cybathlon 2024</li>
+        </ul>
+      </article>
+
+      <article class="case-study">
+        <div class="case-header">
+          <h3>DisCover</h3>
+          <p class="case-tag">Configurator for custom prosthetic covers</p>
+        </div>
+        <p>I took over the configuration algorithm for transfemoral prosthetic covers and rewrote it from the ground up: from an experimental prototype to a production tool used daily by orthopedic technicians at Centro Protesi INAIL.</p>
+        <ul class="case-stats">
+          <li><strong>From 2-3 days to 2-3 hours</strong> to model a cover</li>
+          <li>In-house cover: <strong>~€369</strong> vs <strong>€800-1100</strong> from external suppliers</li>
+        </ul>
+      </article>
+
+      <article class="case-study">
+        <div class="case-header">
+          <h3>Metamorfosi</h3>
+          <p class="case-tag">Design: Cristian Li Voi &amp; Simone Perini · with Revet and UniGe</p>
+        </div>
+        <p>Four 3D-printed columns made from ocean-recycled plastic, each built around a scientific data point on marine pollution: from 150 million tons of plastic in the ocean to 700 threatened species. Exhibited at Genova Design Week.</p>
+      </article>
+
+      <article class="case-study">
+        <div class="case-header">
+          <h3>Dalí</h3>
+          <p class="case-tag">Custom interface between ventilator and patient</p>
+        </div>
+        <p>For patients with muscular dystrophy (e.g. Duchenne — 1.7-3.4 cases per 100,000 in Italy), the previous alternative was a home-made mask assembled by family members. Dalí is built from a 3D face scan, functional component modeling, and a 3D-printed frame with a custom silicone cushion.</p>
+        <ul class="case-stats">
+          <li>Not a prototype: <strong>in use for over 2 years</strong> by real patients, with excellent feedback</li>
+          <li>Dedicated, small-batch production, given how rare the condition is in Italy</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- CHI SONO -->
+  <section id="chi-sono" class="section chi-sono">
+    <div class="lang-block it">
+      <h2>Chi sono</h2>
+      <p>Sono un product &amp; computational designer di Bologna. Lavoro al Centro Protesi INAIL su protesica, ortesi e progettazione per la stampa 3D, e collaboro a contratto con Arturo Tedeschi su progetti di design parametrico.</p>
+      <p>Il filo conduttore del mio lavoro è portare strumenti computazionali — modellazione parametrica, stampa 3D, algoritmi generativi — dentro processi che oggi sono in gran parte manuali, per renderli ripetibili, più rapidi e più personalizzabili. Lo stesso approccio che uso in ambito medicale lo applico a progetti di design di prodotto più ampi.</p>
+    </div>
+    <div class="lang-block en" hidden>
+      <h2>About</h2>
+      <p>I'm a product &amp; computational designer based in Bologna, Italy. I work at Centro Protesi INAIL on prosthetics, orthotics, and design for 3D printing, and collaborate under contract with Arturo Tedeschi on parametric design projects.</p>
+      <p>The common thread in my work is bringing computational tools — parametric modeling, 3D printing, generative algorithms — into processes that are today largely manual, making them repeatable, faster, and more customizable. I apply the same approach used in the medical field to broader product design projects.</p>
+    </div>
+  </section>
+
+  <!-- CONTATTI -->
+  <section id="contatti" class="section contatti">
+    <div class="lang-block it">
+      <h2>Contatti</h2>
+      <p>Per collaborazioni, progetti R&amp;D o corsi di formazione, scrivimi o trovami sui canali qui sotto.</p>
+    </div>
+    <div class="lang-block en" hidden>
+      <h2>Contact</h2>
+      <p>For collaborations, R&amp;D projects, or training courses, reach out or find me on the channels below.</p>
+    </div>
+    <ul class="contact-links">
+      <li><a href="mailto:simoneperini1996@gmail.com">Email</a></li>
+      <li><a href="https://linkedin.com/in/simone-perini-design" target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a href="https://instagram.com/simoneperini.design" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 Simone Perini</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+/* ===== Reset & base ===== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* altezza header sticky, evita che copra il titolo della sezione */
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #1a1a1a;
+  background: #f7f6f4;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+  font-weight: 600;
+  margin: 0 0 0.5em 0;
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 1em; }
+h3 { font-size: 1.25rem; }
+
+p { margin: 0 0 1em 0; }
+
+a {
+  color: inherit;
+}
+
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+/* ===== Header ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(247, 246, 244, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e2e0db;
+}
+
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.main-nav {
+  display: flex;
+  gap: 28px;
+  flex: 1;
+  justify-content: center;
+}
+
+.main-nav a {
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: #1a1a1a;
+}
+
+.main-nav a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: #8a8a8a;
+  padding: 4px;
+}
+
+.lang-btn.active {
+  color: #1a1a1a;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ===== Layout sections ===== */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.section:nth-of-type(even) {
+  background: #efeee9;
+}
+
+/* ===== Hero ===== */
+.hero {
+  padding-top: 110px;
+  padding-bottom: 110px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: #6b6b6b;
+  margin-bottom: 1em;
+}
+
+.lead {
+  max-width: 640px;
+  font-size: 1.1rem;
+  color: #3a3a3a;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  margin-top: 2em;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  text-decoration: none;
+  border-radius: 2px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: 1px solid #1a1a1a;
+}
+
+.btn-primary {
+  background: #1a1a1a;
+  color: #f7f6f4;
+}
+
+.btn-primary:hover {
+  background: #333;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #1a1a1a;
+}
+
+.btn-secondary:hover {
+  background: #1a1a1a;
+  color: #f7f6f4;
+}
+
+/* ===== Servizi ===== */
+.servizi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+  margin-top: 1.5em;
+}
+
+.servizio h3 {
+  margin-bottom: 0.4em;
+}
+
+.servizio p {
+  color: #4a4a4a;
+  font-size: 0.95rem;
+}
+
+/* ===== Progetti / case study ===== */
+.case-study {
+  padding: 40px 0;
+  border-top: 1px solid #d8d6cf;
+}
+
+.case-study:first-of-type {
+  border-top: none;
+}
+
+.case-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 0.8em;
+}
+
+.case-tag {
+  color: #6b6b6b;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.case-stats {
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.case-stats li {
+  font-size: 0.95rem;
+  color: #2a2a2a;
+  padding-left: 1.1em;
+  position: relative;
+}
+
+.case-stats li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: #a3572e;
+}
+
+/* ===== Chi sono / Contatti ===== */
+.chi-sono p,
+.contatti p {
+  max-width: 680px;
+}
+
+.contact-links {
+  display: flex;
+  gap: 24px;
+  margin-top: 1.5em;
+  flex-wrap: wrap;
+}
+
+.contact-links a {
+  text-decoration: none;
+  border-bottom: 1px solid #1a1a1a;
+  padding-bottom: 2px;
+  font-size: 0.95rem;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  text-align: center;
+  padding: 32px 24px;
+  font-size: 0.85rem;
+  color: #8a8a8a;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 720px) {
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .main-nav {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    gap: 18px;
+    overflow-x: auto;
+  }
+
+  .section {
+    padding: 56px 20px;
+  }
+}
