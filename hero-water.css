@@ -14,11 +14,21 @@
   background-image: none;           /* la texture statica lascia il posto al canvas */
 }
 
+/* Zona d'acqua: creata dallo script, avvolge hero + Servizi.
+   Ordine dei livelli: fondo delle sezioni → sfumatura hero (0)
+   → puntini (1) → velo del testo (2) → testi (3). */
+.water-zone {
+  position: relative;
+  isolation: isolate;
+}
+
 .hero-fx {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
   display: block;
-  z-index: 0;
+  z-index: 1;
+  pointer-events: none;             /* i click arrivano a testi e bottoni */
 }
 
 /* Velo scuro solo dietro al testo, per la leggibilità */
@@ -26,14 +36,18 @@
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
-  background: linear-gradient(90deg, rgba(9, 2, 47, 0.72) 0%, rgba(9, 2, 47, 0.45) 42%, rgba(9, 2, 47, 0) 75%);
+  /* il velo svanisce verso il basso, così non schiarisce la sfumatura verso i Servizi */
+  -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent 95%);
+  mask-image: linear-gradient(180deg, #000 50%, transparent 95%);
+  background: linear-gradient(90deg, rgba(47, 44, 209, 0.72) 0%, rgba(47, 44, 209, 0.45) 42%, rgba(47, 44, 209, 0) 75%);
 }
 
-.hero > .lang-block {
+.hero > .lang-block,
+.water-zone #servizi > .lang-block {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Entrata del testo, sincronizzata con la goccia d'apertura */
@@ -54,6 +68,6 @@
 
 @media (max-width: 720px) {
   .hero.hero--live::after {
-    background: linear-gradient(180deg, rgba(9, 2, 47, 0.55) 0%, rgba(9, 2, 47, 0.55) 100%);
+    background: linear-gradient(180deg, rgba(47, 44, 209, 0.55) 0%, rgba(47, 44, 209, 0.55) 100%);
   }
 }
