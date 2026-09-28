@@ -1,7 +1,8 @@
 /* =====================================================================
    HERO PARAMETRICO — "superficie d'acqua"
    ---------------------------------------------------------------------
-   Sfondo animato dell'hero: una griglia di puntini che si allungano in
+   Sfondo animato dell'hero (che prosegue nella sezione Servizi,
+   sfumando fino a scomparire): una griglia di puntini che si allungano in
    lineette vicino al cursore (attrattore, stile Grasshopper), appoggiata
    su una simulazione d'onda 2D (algoritmo di Hugo Elias).
    · mouse = dito che sfiora l'acqua (attrattore + scia)
@@ -37,20 +38,35 @@
     rainDouble: 0.35,   //   probabilità di una doppia goccia (crea interferenze)
     buttons: true,      // PULSANTI: passando sui CTA parte un anello dal pulsante
     buttonAmp: 0.7,
+    // — continuazione nei Servizi —
+    extendInto: '#servizi', // sezione subito sotto l'hero in cui l'acqua prosegue ('' = solo hero)
+    fadeStart: 0.85,    //   inizio sfumatura, in frazione dell'altezza dell'hero
+    fadeEnd: 0.5,       //   fine sfumatura, in frazione dell'altezza dei Servizi (0.5 = a metà)
     heightGain: 7,      // quanto la cresta illumina/ingrandisce i segni
     shift: 3,           // spostamento max dei segni lungo la pendenza (px)
   };
 
   const hero = document.getElementById('hero');
   if (!hero) return;
-  const cv = document.createElement('canvas');                        // il canvas lo crea lo script:
-  cv.className = 'hero-fx'; cv.setAttribute('aria-hidden', 'true');   // nell'HTML non serve toccare nulla
-  hero.prepend(cv);
+  // Zona d'acqua: un contenitore che avvolge l'hero e (se c'è) la sezione
+  // subito sotto. Il canvas copre tutta la zona, così le onde passano da
+  // una sezione all'altra senza stacco. Nell'HTML non serve toccare nulla.
+  const below = CFG.extendInto ? document.querySelector(CFG.extendInto) : null;
+  const extend = below && hero.nextElementSibling === below;
+  const zone = document.createElement('div');
+  zone.className = 'water-zone';
+  hero.parentNode.insertBefore(zone, hero);
+  zone.appendChild(hero);
+  if (extend) zone.appendChild(below);
+  const cv = document.createElement('canvas');
+  cv.className = 'hero-fx'; cv.setAttribute('aria-hidden', 'true');
+  zone.prepend(cv);
   hero.classList.add('hero--live');                                   // spegne la texture statica (vedi style.css)
   const ctx = cv.getContext('2d');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  let W = 0, H = 0, dpr = 1, running = true, readyFired = false;
+  let W = 0, H = 0, HH = 0, fadeFrom = 0, fadeTo = 0, dpr = 1, running = true, readyFired = false;
+  // W, H = zona intera · HH = altezza dell'hero · fadeFrom→fadeTo = dove i puntini sfumano
   let t0 = performance.now(), last = t0, acc = 0, nextIdle = 0;
 
   // ---- superficie d'acqua ---------------------------------------------
@@ -89,14 +105,14 @@
   // ---- puntatore: attrattore + scia -----------------------------------
   const att = { x: 0, y: 0, tx: 0, ty: 0, lastMove: -1e9 };
   const ptr = { x: 0, y: 0, px: null, py: null };
-  const local = e => { const r = hero.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
-  hero.addEventListener('pointermove', e => {
+  const local = e => { const r = zone.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  zone.addEventListener('pointermove', e => {
     const [x, y] = local(e);
     att.tx = x; att.ty = y; att.lastMove = performance.now();
     ptr.x = x; ptr.y = y; if (ptr.px === null) { ptr.px = x; ptr.py = y; }
   });
-  hero.addEventListener('pointerleave', () => { ptr.px = null; });
-  hero.addEventListener('pointerdown', e => {
+  zone.addEventListener('pointerleave', () => { ptr.px = null; });
+  zone.addEventListener('pointerdown', e => {
     const [x, y] = local(e); disturb(x, y, CFG.dropAmp, CFG.dropRadius);
     att.tx = x; att.ty = y; att.lastMove = performance.now();
   });
@@ -112,7 +128,7 @@
     if (now - att.lastMove > 3000) {
       const s = now * 0.00012;
       att.tx = W * (0.64 + 0.2 * Math.sin(s * 1.3));
-      att.ty = H * (0.5 + 0.25 * Math.sin(s * 2.1 + 1));
+      att.ty = HH * (0.5 + 0.25 * Math.sin(s * 2.1 + 1));
     }
     att.x += (att.tx - att.x) * 0.06; att.y += (att.ty - att.y) * 0.06;
   }
@@ -132,18 +148,19 @@
   const rand = (a, b) => a + Math.random() * (b - a);
   const LV = 14;                                  // livelli di intensità (disegno a lotti → veloce)
   const COL = Array.from({ length: LV }, (_, i) => { const k = i / (LV - 1);
-    return `hsla(${253 - k * 6}, ${95 - k * 10}%, ${100 + k * 20}%, ${0.18 + 0.77 * k})`; }); // #5729fc → lavanda
+    return `hsla(${253 - k * 6}, ${95 - k * 10}%, ${57 + k * 25}%, ${0.18 + 0.77 * k})`; }); // #5729fc → lavanda
   const buckets = Array.from({ length: LV }, () => []);
 
   // ---- disegno --------------------------------------------------------
   function draw(intro, t = 0) {
-    const sp = CFG.spacing + (W < 700 ? 2 : 0), R = Math.hypot(W, H), cx = W * 0.62, cy = H * 0.5, e = CFG.cell;
+    const sp = CFG.spacing + (W < 700 ? 2 : 0), R = Math.hypot(W, HH), Rz = Math.hypot(W, H), cx = W * 0.62, cy = HH * 0.5, e = CFG.cell;
     const style = CFG.style;
     ctx.clearRect(0, 0, W, H);
     for (const b of buckets) b.length = 0;
 
-    for (let y = sp / 2; y < H; y += sp) for (let x = sp / 2; x < W; x += sp) {
-      const dc = Math.hypot(x - cx, y - cy) / (R * 0.6);
+    const yMax = Math.min(H, fadeTo + sp);                          // sotto la sfumatura non disegna nulla
+    for (let y = sp / 2; y < yMax; y += sp) for (let x = sp / 2; x < W; x += sp) {
+      const dc = Math.hypot(x - cx, y - cy) / (Rz * 0.6);
       const vis = clamp((intro * 1.25 - dc) * 3, 0, 1);
       if (vis <= 0) continue;
 
@@ -177,6 +194,17 @@
       }
       ctx.fill(dots); ctx.stroke(lines);
     }
+
+    // Sfumatura: "cancella" gradualmente i puntini da fadeFrom a fadeTo
+    if (fadeTo > fadeFrom && fadeFrom < H) {
+      const g = ctx.createLinearGradient(0, fadeFrom, 0, fadeTo);
+      g.addColorStop(0, 'rgba(0,0,0,0)');
+      g.addColorStop(1, 'rgba(0,0,0,1)');
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = g;
+      ctx.fillRect(0, fadeFrom, W, H - fadeFrom);
+      ctx.globalCompositeOperation = 'source-over';
+    }
   }
 
   function frame(now) {
@@ -187,7 +215,7 @@
     updateAttractor(now);
     applyTrail();
     if (CFG.rain && t > nextIdle) {                                   // pioggia su tutto lo sfondo
-      const amp = CFG.rainAmp * (now - att.lastMove > 3000 ? 1 : 0.5), x = rand(W * 0.05, W * 0.95), y = rand(H * 0.1, H * 0.9);
+      const amp = CFG.rainAmp * (now - att.lastMove > 3000 ? 1 : 0.5), x = rand(W * 0.05, W * 0.95), y = rand(HH * 0.1, fadeTo * 0.92);
       disturb(x, y, amp, CFG.dropRadius * rand(0.8, 1.3));
       if (Math.random() < CFG.rainDouble) {                           // seconda goccia vicina → interferenza
         const a = rand(0, 6.28), d = rand(60, 140);
@@ -204,18 +232,20 @@
 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const r = hero.getBoundingClientRect();
+    const r = zone.getBoundingClientRect();
     if (Math.abs(r.width - W) < 1 && Math.abs(r.height - H) < 1 && cur) return;
-    W = r.width; H = r.height;
+    W = r.width; H = r.height; HH = hero.offsetHeight;
+    fadeFrom = extend ? HH * CFG.fadeStart : H;
+    fadeTo = extend ? HH + below.offsetHeight * CFG.fadeEnd : H;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + 'px'; cv.style.height = H + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    if (!att.x) { att.x = att.tx = W * 0.64; att.y = att.ty = H * 0.5; }
+    if (!att.x) { att.x = att.tx = W * 0.64; att.y = att.ty = HH * 0.5; }
     initWater();
   }
   function start() {
     t0 = last = performance.now(); acc = 0; nextIdle = 2.2; readyFired = false;
     hero.classList.remove('is-ready');
-    initWater(); disturb(W * 0.62, H * 0.5, CFG.introAmp, CFG.dropRadius * 1.2);
+    initWater(); disturb(W * 0.62, HH * 0.5, CFG.introAmp, CFG.dropRadius * 1.2);
   }
 
   resize();
@@ -224,14 +254,14 @@
     addEventListener('resize', () => { resize(); draw(1.2); });
     return;
   }
-  new ResizeObserver(resize).observe(hero);                           // anche quando cambia lingua IT/EN
+  new ResizeObserver(resize).observe(zone);                           // anche quando cambia lingua IT/EN
   new IntersectionObserver(([en]) => {
     const was = running; running = en.isIntersecting;
     if (running && !was) { last = performance.now(); requestAnimationFrame(frame); }
-  }).observe(hero);
+  }).observe(zone);
   hero.querySelectorAll('.btn').forEach(b => b.addEventListener('pointerenter', () => {
     if (!CFG.buttons) return;
-    const r = b.getBoundingClientRect(), hr = hero.getBoundingClientRect();
+    const r = b.getBoundingClientRect(), hr = zone.getBoundingClientRect();
     disturb(r.left + r.width / 2 - hr.left, r.top + r.height / 2 - hr.top, CFG.buttonAmp, 26);
   }));
   start();
