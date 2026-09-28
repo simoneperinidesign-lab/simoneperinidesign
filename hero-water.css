@@ -1,0 +1,59 @@
+/* =====================================================================
+   HERO PARAMETRICO — stili per hero-water.js
+   Si attivano solo se lo script parte (classe .hero--live): senza
+   JavaScript l'hero resta com'era, con la texture statica.
+   ===================================================================== */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;              /* su mobile lo scroll verticale resta libero */
+}
+
+.hero.hero--live {
+  background-image: none;           /* la texture statica lascia il posto al canvas */
+}
+
+.hero-fx {
+  position: absolute;
+  inset: 0;
+  display: block;
+  z-index: 0;
+}
+
+/* Velo scuro solo dietro al testo, per la leggibilità */
+.hero.hero--live::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(9, 2, 47, 0.72) 0%, rgba(9, 2, 47, 0.45) 42%, rgba(9, 2, 47, 0) 75%);
+}
+
+.hero > .lang-block {
+  position: relative;
+  z-index: 2;
+}
+
+/* Entrata del testo, sincronizzata con la goccia d'apertura */
+.hero--live > .lang-block > * {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.hero--live.is-ready > .lang-block > * {
+  opacity: 1;
+  transform: none;
+}
+
+.hero--live.is-ready > .lang-block > :nth-child(2) { transition-delay: 0.12s; }
+.hero--live.is-ready > .lang-block > :nth-child(3) { transition-delay: 0.24s; }
+.hero--live.is-ready > .lang-block > :nth-child(4) { transition-delay: 0.36s; }
+
+@media (max-width: 720px) {
+  .hero.hero--live::after {
+    background: linear-gradient(180deg, rgba(9, 2, 47, 0.55) 0%, rgba(9, 2, 47, 0.55) 100%);
+  }
+}
