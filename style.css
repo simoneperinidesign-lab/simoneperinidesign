@@ -343,7 +343,7 @@ ul {
 /* ===== Aziende e collaborazioni ===== */
 .brands {
   max-width: none;
-  padding: 100px 24px;
+  padding: 60px 24px;
   background: var(--hero-bg);   /* #2f2cd1 */
   color: #fff;
 }
