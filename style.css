@@ -57,9 +57,10 @@ ul {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(247, 246, 244, 0.92);
+  background: rgba(9, 2, 47, 0.94);   /* = --ink-deep, quasi opaco */
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid #e2e0db;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f2f0e8;
 }
 
 .header-inner {
@@ -90,7 +91,8 @@ ul {
 .main-nav a {
   text-decoration: none;
   font-size: 0.95rem;
-  color: #1a1a1a;
+  color: #f2f0e8;
+  white-space: nowrap;     /* "Chi sono" non va mai a capo */
 }
 
 .main-nav a:hover {
@@ -110,12 +112,12 @@ ul {
   border: none;
   cursor: pointer;
   font: inherit;
-  color: #8a8a8a;
+  color: #8f8aa8;
   padding: 4px;
 }
 
 .lang-btn.active {
-  color: #1a1a1a;
+  color: #f2f0e8;
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -140,12 +142,15 @@ ul {
    riga, l'alternanza chiaro/scuro calcolata da :nth-of-type sopra
    si sfaserebbe su tutte le sezioni successive. Fissiamo lo sfondo
    originale per indirizzo (id), più specifico e stabile. */
-#contatti {
-  background: transparent;
+/* Chi sono: la foto è lo sfondo della sezione (vedi "Chi sono" più in basso) */
+#chi-sono {
+  background-color: #e3e2de;
 }
 
-#chi-sono {
-  background: #efeee9;
+/* Contatti: blu notte, come nel PDF */
+#contatti {
+  background: var(--ink-deep);
+  color: #f2f0e8;
 }
 
 /* ===== Hero =====
@@ -164,6 +169,24 @@ ul {
   background-size: cover;
   background-position: center;
   color: #f2f0e8;
+}
+
+/* Nella parte bassa dell'hero il blu inizia a scurirsi: la sfumatura
+   prosegue nella sezione Servizi, così le due sezioni si fondono. */
+.hero {
+  position: relative;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 45%;
+  z-index: 0;              /* sotto i puntini dell'animazione e sotto i testi */
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(9, 2, 47, 0) 0%, rgba(9, 2, 47, 0.45) 100%);
 }
 
 .hero > .lang-block {
@@ -262,13 +285,33 @@ ul {
   color: #f7f6f4;
 }
 
-/* ===== Servizi ===== */
+/* ===== Servizi =====
+   Sfondo: il blu dell'hero (--hero-bg) con sopra un velo che parte dal
+   45% di scuro (dove finisce la sfumatura dell'hero) e arriva al
+   --ink-deep pieno. Il passaggio tra le due sezioni è invisibile. */
+#servizi {
+  background:
+    linear-gradient(180deg, rgba(9, 2, 47, 0.45) 0%, rgba(9, 2, 47, 1) 70%),
+    var(--hero-bg);
+  color: #f2f0e8;
+}
+
+#servizi h2 {
+  color: #f7f6f0;
+}
+
 .servizi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 32px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));   /* 2 colonne, come nel PDF */
+  gap: 28px 48px;
   margin-top: 1.5em;
   counter-reset: servizio;
+}
+
+@media (max-width: 720px) {
+  .servizi-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .servizio {
@@ -282,12 +325,14 @@ ul {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: var(--accent);
+  color: #b9a8f5;            /* lavanda: il viola --accent su fondo scuro non si leggerebbe */
   margin-bottom: 0.6em;
 }
 
 .servizio h3 {
-  margin-bottom: 0.4em;
+  margin-bottom: 0;
+  color: #f2f0e8;
+  font-weight: 600;
 }
 
 .servizio p {
@@ -299,13 +344,14 @@ ul {
 .brands {
   max-width: none;
   padding: 100px 24px;
-  background: var(--ink-deep);
+  background: var(--hero-bg);   /* #2f2cd1 */
   color: #fff;
 }
 
 .brands-inner {
   max-width: var(--content-width);
   margin: 0 auto;
+  padding: 0 24px;         /* allinea il titolo alle altre sezioni */
 }
 
 .brands h2 {
@@ -371,16 +417,16 @@ ul {
    (h2, hint) passano a una tinta chiara per restare leggibili sul viola
    scuro. */
 #progetti {
-  background: var(--ink-deep);
+  background: #ffffff;
 }
 
 #progetti h2 {
-  color: #f7f6f0;
+  color: #1a1a1a;
 }
 
 .scroll-hint {
   font-size: 0.85rem;
-  color: #b9a8f5;
+  color: var(--accent);
   margin-top: -0.5em;
 }
 
@@ -514,10 +560,72 @@ ul {
   color: #eeeeee;
 }
 
-/* ===== Chi sono / Contatti ===== */
-.chi-sono p,
+/* ===== Chi sono =====
+   Desktop: la foto copre tutta la sezione, che mantiene le proporzioni
+   dell'immagine (1672×941) così il soggetto non viene mai tagliato.
+   Il testo sta a sinistra, sulla parte vuota della foto. */
+.chi-sono {
+  background-image: url("images/chi-sono.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: calc(100vw * 941 / 1672);
+  display: flex;
+  align-items: center;
+}
+
+.chi-sono-inner {
+  width: 100%;
+}
+
+.chi-sono .lang-block {
+  max-width: min(460px, 42%);
+}
+
+.chi-sono h2 {
+  margin-bottom: 0.2em;
+}
+
+.chi-sono-sub {
+  font-size: 0.95rem;
+  color: #4a4a4a;
+  margin-bottom: 1.6em;
+}
+
+.chi-sono p {
+  color: #2a2a2a;
+}
+
+.btn-cv {
+  margin-top: 1.2em;
+}
+
+/* Tablet/telefono: prima il testo, poi la foto sotto (senza coprirla) */
+@media (max-width: 900px) {
+  .chi-sono {
+    display: block;
+    min-height: 0;
+    background-color: #e3e2de;
+    background-image:
+      linear-gradient(180deg, #e3e2de 0%, rgba(227, 226, 222, 0) 30%),
+      url("images/chi-sono.jpg");
+    background-size: 100% 95vw, auto 95vw;
+    background-position: center bottom, 80% bottom;
+    padding-bottom: calc(95vw + 24px) !important;
+  }
+
+  .chi-sono .lang-block {
+    max-width: none;
+  }
+}
+
+/* ===== Contatti ===== */
 .contatti p {
   max-width: 680px;
+}
+
+.contatti h2 {
+  color: #f7f6f0;
 }
 
 .contact-links {
@@ -529,7 +637,7 @@ ul {
 
 .contact-links a {
   text-decoration: none;
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 1px solid rgba(242, 240, 232, 0.6);
   padding-bottom: 2px;
   font-size: 0.95rem;
 }
@@ -551,6 +659,7 @@ ul {
 
   .main-nav {
     order: 3;
+    flex: 1 1 100%;        /* va a capo su una riga tutta sua */
     width: 100%;
     justify-content: flex-start;
     gap: 18px;
@@ -561,8 +670,17 @@ ul {
     padding: 56px 20px;
   }
 
+  /* hero e Collaborazioni hanno un contenitore interno con il suo padding:
+     su mobile lo azzeriamo, così i titoli si allineano a tutte le altre sezioni */
+  .hero > .lang-block,
+  .brands-inner {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   .progetti-grid {
     grid-template-columns: 1fr;
+    grid-auto-rows: auto;  /* su mobile l'altezza la decide l'aspect-ratio dei riquadri */
   }
 
   .project-tile,
