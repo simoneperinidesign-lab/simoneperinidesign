@@ -60,7 +60,7 @@ ul {
 }
 
 .header-inner {
-  max-width: 1100px;
+  max-width: none;
   margin: 0 auto;
   padding: 18px 24px;
   display: flex;
@@ -120,7 +120,7 @@ ul {
 
 /* ===== Layout sections ===== */
 .section {
-  max-width: 1100px;
+  max-width: none;
   margin: 0 auto;
   padding: 80px 24px;
 }
@@ -154,7 +154,7 @@ ul {
 }
 
 .hero > .lang-block {
-  max-width: 1100px;
+  max-width: none;
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -291,7 +291,7 @@ ul {
 }
 
 .brands-inner {
-  max-width: 1100px;
+  max-width: none;
   margin: 0 auto;
 }
 
