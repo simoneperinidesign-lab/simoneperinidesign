@@ -148,7 +148,7 @@
   const rand = (a, b) => a + Math.random() * (b - a);
   const LV = 14;                                  // livelli di intensità (disegno a lotti → veloce)
   const COL = Array.from({ length: LV }, (_, i) => { const k = i / (LV - 1);
-    return `hsla(${253 - k * 6}, ${95 - k * 10}%, ${57 + k * 25}%, ${0.18 + 0.77 * k})`; }); // #5729fc → lavanda
+    return `hsla(${253 - k * 6}, ${95 - k * 10}%, ${80 + k * 15}%, ${0.18 + 0.77 * k})`; }); // #5729fc → lavanda
   const buckets = Array.from({ length: LV }, () => []);
 
   // ---- disegno --------------------------------------------------------
