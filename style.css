@@ -4,7 +4,7 @@
 :root {
   --accent: #5729fc;       /* viola/indaco acceso — bottoni, numeri, link */
   --accent-deep: #2a1084;  /* viola scuro — sfumature, hover */
-  --ink-deep: #09022f;     /* quasi nero-viola — sfondo hero */
+  --ink-deep: #2f2cd1;     /* quasi nero-viola — sfondo hero */
 }
 
 /* ===== Reset & base ===== */
