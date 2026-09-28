@@ -6,6 +6,9 @@
   --accent-deep: #2a1084;  /* viola scuro — sfumature, hover */
   --ink-deep: #09022f;     /* quasi nero-viola — sfondo Collaborazioni e Progetti */
   --hero-bg: #2f2cd1;      /* blu — sfondo dell'hero */
+  --content-width: 1100px; /* larghezza massima dei CONTENUTI (testi, griglie).
+                              Gli SFONDI sono sempre a tutto schermo.
+                              Per un layout più largo cambia solo questo valore. */
 }
 
 /* ===== Reset & base ===== */
@@ -60,7 +63,7 @@ ul {
 }
 
 .header-inner {
-  max-width: none;
+  max-width: var(--content-width);
   margin: 0 auto;
   padding: 18px 24px;
   display: flex;
@@ -118,11 +121,15 @@ ul {
   text-underline-offset: 4px;
 }
 
-/* ===== Layout sections ===== */
+/* ===== Layout sections =====
+   La sezione è larga quanto lo schermo (così lo sfondo arriva ai bordi),
+   mentre il padding laterale calcolato tiene il contenuto centrato e
+   largo al massimo --content-width. Sotto quella larghezza il padding
+   resta comunque di almeno 24px. */
 .section {
   max-width: none;
   margin: 0 auto;
-  padding: 80px 24px;
+  padding: 80px max(24px, calc((100% - var(--content-width)) / 2 + 24px));
 }
 
 .section:nth-of-type(even) {
@@ -141,20 +148,26 @@ ul {
   background: #efeee9;
 }
 
-/* ===== Hero ===== */
+/* ===== Hero =====
+   L'hero centra il contenuto con il suo .lang-block interno, quindi
+   qui azzeriamo il padding laterale calcolato di .section.
+   La texture sotto è solo la versione "di riserva": quando parte
+   hero-water.js viene sostituita dall'animazione. */
 .hero {
   padding-top: 130px;
   padding-bottom: 130px;
+  padding-left: 0;
+  padding-right: 0;
   max-width: none;
   background-color: var(--hero-bg);
-  background-image: linear-gradient(180deg, rgba(9, 2, 47, 0.6), rgba(9, 2, 47, 0.82)), url("images/hero-texture.jpg");
+  background-image: linear-gradient(180deg, rgba(47, 44, 209, 0.6), rgba(47, 44, 209, 0.82)), url("images/hero-texture.jpg");
   background-size: cover;
   background-position: center;
   color: #f2f0e8;
 }
 
 .hero > .lang-block {
-  max-width: none;
+  max-width: var(--content-width);
   margin: 0 auto;
   padding: 0 24px;
 }
@@ -291,7 +304,7 @@ ul {
 }
 
 .brands-inner {
-  max-width: none;
+  max-width: var(--content-width);
   margin: 0 auto;
 }
 
