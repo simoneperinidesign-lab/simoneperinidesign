@@ -249,12 +249,12 @@ ul {
 .hero .btn-secondary {
   background: transparent;
   border-color: #b9a8f5;
-  color: #09022f;
+  color: #f2f0e8;
 }
 
 .hero .btn-secondary:hover {
   background: #f2f0e8;
-  color: #f2f0e8;
+  color: #17160f;
   border-color: #f2f0e8;
 }
 
