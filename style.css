@@ -341,8 +341,11 @@ ul {
 }
 
 .servizio p {
-  color: #4a4a4a;
+  color: #cbc7ba;          /* grigio chiaro caldo, lo stesso dei testi secondari sul blu */
   font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0.4em 0 0 0;     /* piccolo stacco dal titolo */
+  max-width: 440px;        /* righe corte, più leggibili */
 }
 
 /* ===== Aziende e collaborazioni ===== */
