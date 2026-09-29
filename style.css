@@ -134,9 +134,6 @@ ul {
   padding: 80px max(24px, calc((100% - var(--content-width)) / 2 + 24px));
 }
 
-.section:nth-of-type(even) {
-  background: #efeee9;
-}
 
 /* La striscia "Aziende" si inserisce tra Servizi e Progetti: senza questa
    riga, l'alternanza chiaro/scuro calcolata da :nth-of-type sopra
