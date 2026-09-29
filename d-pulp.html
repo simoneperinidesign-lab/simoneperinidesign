@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D-Pulp — Simone Perini</title>
+<meta name="description" content="D-Pulp: sistema parametrico per progettare e stampare in 3D protesi mioelettriche di arto superiore al Centro Protesi INAIL.">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="progetto.css">
+</head>
+<body class="project-page">
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo">Simone Perini</a>
+    <nav class="main-nav">
+      <a href="../index.html#servizi"><span class="it">Servizi</span><span class="en" hidden>Services</span></a>
+      <a href="../index.html#progetti"><span class="it">Progetti</span><span class="en" hidden>Projects</span></a>
+      <a href="../index.html#chi-sono"><span class="it">Chi sono</span><span class="en" hidden>About</span></a>
+      <a href="../index.html#contatti"><span class="it">Contatti</span><span class="en" hidden>Contact</span></a>
+    </nav>
+    <div class="lang-switch">
+      <button id="lang-it" class="lang-btn active" type="button">IT</button>
+      <span aria-hidden="true">/</span>
+      <button id="lang-en" class="lang-btn" type="button">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="pv-hero pv-hero--right">
+    <img src="../images/progetti/d-pulp/prodotto-componenti.jpg" alt="Una cover D-Pulp con texture a esagoni in piedi e una seconda protesi scomposta sul tavolo">
+    <div class="wrap">
+      <a class="back-link" href="../index.html#progetti">← Tutti i progetti</a>
+      <h1>D-Pulp</h1>
+      <p>Protesi mioelettriche di arto superiore progettate con un algoritmo e stampate in 3D, al posto della laminazione manuale.</p>
+    </div>
+  </section>
+
+  <section class="pv-strip">
+    <div class="wrap">
+      <span><b>10-12 h → 3 h</b>lavoro del tecnico nella fase sostituita</span>
+      <span><b>James Dyson Award</b>Italia</span>
+      <span><b>iF Design Award</b></span>
+      <span><b>ADI Design Index</b></span>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="pv-row">
+      <figure class="p-figure"><img src="../images/progetti/d-pulp/contesto-prova-tecnico.jpg" alt="Un tecnico ortopedico regola la protesi D-Pulp sul paziente" loading="lazy"></figure>
+      <div class="pv-text">
+        <span class="p-kicker">Il problema</span>
+        <h2>20-25 ore di lavoro manuale per ogni protesi</h2>
+        <p>Al Centro Protesi INAIL le protesi mioelettriche di arto superiore nascono da un processo in gran parte artigianale: calchi in gesso, laminazione in resina, rifinitura a mano. Il risultato è preciso, ma richiede 20-25 ore di lavoro del tecnico per ogni protesi.</p>
+        <ul class="p-list">
+            <li>Non è ripetibile: il risultato dipende dall'esperienza e dalla manualità di chi lo realizza.</li>
+            <li>Quando una protesi va sostituita, la copia non è mai identica all'originale.</li>
+            <li>La personalizzazione estetica è molto limitata.</li>
+          </ul>
+      </div>
+    </section>
+
+    <section class="pv-row reverse">
+      <figure class="p-figure"><img src="../images/progetti/d-pulp/contesto-computer.jpg" alt="Tecnico e paziente rivedono il modello 3D della protesi al computer" loading="lazy"></figure>
+      <div class="pv-text">
+        <span class="p-kicker">Cosa ho fatto</span>
+        <h2>Un software per i tecnici ortopedici</h2>
+        <span class="pv-big">max 3 h</span>
+        <p>Ho scritto in Grasshopper un algoritmo con un'interfaccia semplificata, pensata per essere usata direttamente dai tecnici ortopedici. Le prime fasi del lavoro con il paziente restano quelle di sempre: il software sostituisce solo la laminazione e la rifinitura di invasatura e cover.</p>
+        <p>Il tecnico scansiona i calchi in gesso, imposta nell'interfaccia spessori, sensori, batteria e fissaggi, e ottiene invasatura e cover pronte per la stampa in PA12 con HP Multi Jet Fusion.</p>
+      </div>
+    </section>
+  </div>
+
+  <img class="pv-full" src="../images/progetti/d-pulp/prodotto-mani-texture.jpg" alt="Invasatura D-Pulp con texture organica blu e arancio, tenuta tra le mani" loading="lazy">
+
+  <div class="wrap">
+    <section class="pv-row">
+      <figure class="p-figure"><img src="../images/progetti/d-pulp/prodotto-macro-texture.jpg" alt="Macro della texture stampata a colori all'interno dell'invasatura" loading="lazy"></figure>
+      <div class="pv-text">
+        <span class="p-kicker">Personalizzazione</span>
+        <h2>Una protesi che il paziente sceglie</h2>
+        <p>La stampa multicolore permette al paziente di scegliere colori, texture predefinite o un proprio disegno, in rilievo o inciso. La texture viene generata dall'algoritmo direttamente sulla superficie della cover.</p>
+      </div>
+    </section>
+
+    <div class="pv-duo">
+      <figure class="p-figure"><img src="../images/progetti/d-pulp/prodotto-due-cover.jpg" alt="Due cover D-Pulp con texture diverse" loading="lazy"></figure>
+      <figure class="p-figure"><img src="../images/progetti/d-pulp/prodotto-macro-foro.jpg" alt="Dettaglio del foro della cover con la texture interna" loading="lazy"></figure>
+    </div>
+
+    <section class="pv-row reverse">
+      <figure class="p-figure"><img src="../images/progetti/d-pulp/contesto-caffe.jpg" alt="Il paziente regge un bicchiere con la protesi D-Pulp" loading="lazy"></figure>
+      <div class="pv-text">
+        <span class="p-kicker">Risultati</span>
+        <h2>Ripetibile e archiviabile</h2>
+        <p>Ogni protesi resta in un archivio digitale: una sostituzione diventa una ristampa, non una nuova lavorazione. Le ore di lavoro che dipendono dall'operatore quasi si dimezzano.</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="pv-event">
+    <div class="wrap">
+      <span class="p-kicker">Dal progetto alla gara</span>
+      <h2>Cybathlon 2024</h2>
+      <p class="ev-intro">Una protesi realizzata con D-Pulp è scesa in gara al Cybathlon 2024 di Zurigo, la competizione in cui persone con disabilità affrontano compiti della vita quotidiana con le proprie tecnologie assistive.</p>
+      <div class="ev-grid">
+        <figure class="p-figure ev-main"><img src="../images/progetti/d-pulp/cybathlon-bicchieri.jpg" alt="Un'atleta impila bicchieri blu con la protesi durante il Cybathlon 2024" loading="lazy"></figure>
+        <figure class="p-figure"><img src="../images/progetti/d-pulp/cybathlon-pinza.jpg" alt="L'atleta usa una pinza con la protesi e tiene fermo il supporto con l'arto sano, Cybathlon 2024" loading="lazy"></figure>
+        <figure class="p-figure"><img src="../images/progetti/d-pulp/cybathlon-lampadina.jpg" alt="Prova della lampadina al Cybathlon 2024" loading="lazy"></figure>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="pv-press">
+    <div class="wrap"><div class="pv-row reverse">
+      <figure class="p-figure"><img src="../images/progetti/d-pulp/mostra-enhance-ingresso.jpg" alt="Ingresso della mostra Enhance di DesignWanted alla Milano Design Week 2024" loading="lazy"></figure>
+      <div class="pv-text">
+        <span class="p-kicker">In mostra</span>
+        <h2>Enhance – Design for Social Impact</h2>
+        <p>D-Pulp è stato esposto alla mostra di DesignWanted durante la Milano Design Week, dal 15 al 21 aprile 2024, nel circuito Isola Design District.</p>
+      </div>
+    </div></div>
+    <div class="wrap"><div class="pv-duo">
+      <figure class="p-figure"><img src="../images/progetti/d-pulp/mostra-enhance-visitatore.jpg" alt="Un visitatore osserva D-Pulp esposto alla mostra Enhance" loading="lazy"></figure>
+      <figure class="p-figure"><img src="../images/progetti/d-pulp/mostra-enhance-tavolo.jpg" alt="Il tavolo espositivo della mostra Enhance con D-Pulp in primo piano" loading="lazy"></figure>
+    </div></div>
+  </section>
+
+  <section class="p-section p-press">
+    <div class="wrap p-split">
+      <div><span class="p-kicker">Rassegna stampa</span><h2>Dicono di D-Pulp</h2></div>
+      <ul class="press-list">
+        <li><a href="https://www.ilsole24ore.com/art/d-pulp-vincitore-dyson-award-2023-vogliamo-rivoluzionare-produzione-protesi-AFGBhpRB" target="_blank" rel="noopener"><span class="press-src">Il Sole 24 Ore</span><span class="press-title">D-Pulp, vincitore del Dyson Award 2023: «vogliamo rivoluzionare la produzione di protesi»</span><span class="press-date">2023 ↗</span></a></li>
+        <li><a href="https://www.wired.it/article/james-dyson-award-2023-vincitori-italia/" target="_blank" rel="noopener"><span class="press-src">Wired Italia</span><span class="press-title">James Dyson Award 2023, i vincitori italiani</span><span class="press-date">2023 ↗</span></a></li>
+        <li><a href="https://www.dyson.it/discover/sostenibilita/james-dyson-award/james-dyson-award-2023-vincitore-italiano" target="_blank" rel="noopener"><span class="press-src">Dyson Italia</span><span class="press-title">“D-Pulp” è il progetto vincitore dell'edizione italiana del James Dyson Award 2023</span><span class="press-date">Set 2023 ↗</span></a></li>
+        <li><a href="https://digitalhealthitalia.com/d-pulp-vince-ledizione-italiana-del-james-dyson-award-2023/" target="_blank" rel="noopener"><span class="press-src">Digital Health Italia</span><span class="press-title">“D-Pulp” vince l'edizione italiana del James Dyson Award 2023</span><span class="press-date">Set 2023 ↗</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="p-credits">
+    <div class="wrap credits-grid">
+      <div>
+        <h3>Contesto</h3>
+        <p>Tesi di laurea magistrale in Design del Prodotto, Università Iuav di Venezia, sviluppata all'Area Ricerca del Centro Protesi INAIL di Vigorso di Budrio.</p>
+      </div>
+      <div>
+        <h3>Il mio ruolo</h3>
+        <p>Progettazione dell'algoritmo e dell'interfaccia per i tecnici ortopedici, personalizzazione di invasatura e cover, stampa 3D del dispositivo.</p>
+        <p>Rhino · Grasshopper · EinScan HX · HP Multi Jet Fusion</p>
+      </div>
+      <div>
+        <h3>Riconoscimenti</h3>
+        <ul>
+          <li><a class="p-link" href="https://www.jamesdysonaward.org/it-IT/2023/project/d-pulp-digital-process-for-upper-limb-prosthetics" target="_blank" rel="noopener">James Dyson Award Italia ↗</a></li>
+          <li><a class="p-link" href="https://ifdesign.com/en/winner-ranking/project/d-pulp/676751" target="_blank" rel="noopener">iF Design Award ↗</a></li>
+          <li><a class="p-link" href="https://www.adi-design.org/2022_z00794" target="_blank" rel="noopener">ADI Design Index ↗</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <a class="p-next" href="discover.html">
+    <div class="wrap">
+      <span class="p-kicker">Progetto successivo →</span>
+      <strong>DisCover</strong>
+    </div>
+  </a>
+
+</main>
+
+<footer class="site-footer">
+  <p>&copy; 2026 Simone Perini</p>
+</footer>
+
+<script src="../script.js"></script>
+</body>
+</html>
