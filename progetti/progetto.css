@@ -498,6 +498,59 @@
 }
 
 /* =====================================================================
+   TESTATA SENZA FASCIA: i dati chiave stanno sulla foto, leggibili
+   grazie a un gradiente che scurisce la foto verso il basso
+   ===================================================================== */
+.pv-hero {
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+
+.pv-hero--right::after,
+.pv-hero::after {
+  background:
+    linear-gradient(90deg, rgba(9, 2, 47, 0) 45%, rgba(9, 2, 47, 0.45) 100%),
+    linear-gradient(180deg, rgba(9, 2, 47, 0) 30%, rgba(9, 2, 47, 0.55) 62%, rgba(9, 2, 47, 0.95) 100%);
+}
+
+.pv-hero .wrap {
+  padding-bottom: 28px;
+}
+
+.pv-facts {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 40px;
+  padding-top: 20px;
+  padding-bottom: 36px !important;
+  font-size: 0.95rem;
+  color: #e6e3f5;
+}
+
+.pv-hero--right .pv-facts {
+  flex-direction: row;
+  align-items: center;
+}
+
+.pv-hero--right .pv-facts > * {
+  width: auto;
+}
+
+.pv-facts b {
+  font-family: "Archivo", sans-serif;
+  font-weight: 900;
+  color: #ffffff;
+  margin-right: 6px;
+}
+
+.pv-hero + .wrap {
+  padding-top: var(--gap);
+}
+
+/* =====================================================================
    RITMO VERTICALE UNICO
    Ogni blocco ha 44px sopra e sotto: tra due blocchi bianchi lo spazio
    è sempre 88px (desktop) / 56px (mobile). Per cambiarlo per tutta la
