@@ -234,28 +234,28 @@ ul {
 
 /* "Guarda i progetti": bianco → viola chiaro */
 .hero .btn-primary {
+  background: #b9a8f5;
+  border-color: #b9a8f5;
+  color: #09022f;
+}
+
+.hero .btn-primary:hover {
   background: #f2f0e8;
   color: #17160f;
   border-color: #f2f0e8;
 }
 
-.hero .btn-primary:hover {
-  background: #b9a8f5;
-  border-color: #b9a8f5;
-  color: #09022f;
-}
-
 /* "Contattami": contorno bianco → pieno viola chiaro */
 .hero .btn-secondary {
   background: transparent;
-  color: #f2f0e8;
-  border-color: #f2f0e8;
+  border-color: #b9a8f5;
+  color: #09022f;
 }
 
 .hero .btn-secondary:hover {
-  background: #b9a8f5;
-  border-color: #b9a8f5;
-  color: #09022f;
+  background: #f2f0e8;
+  color: #17160f;
+  border-color: #f2f0e8;
 }
 
 .btn {
