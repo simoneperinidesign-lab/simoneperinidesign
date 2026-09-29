@@ -227,6 +227,12 @@ ul {
   flex-wrap: wrap;
 }
 
+/* Transizione morbida del colore al passaggio del mouse */
+.hero .btn {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* "Guarda i progetti": bianco → viola chiaro */
 .hero .btn-primary {
   background: #f2f0e8;
   color: #17160f;
@@ -234,20 +240,22 @@ ul {
 }
 
 .hero .btn-primary:hover {
-  background: #d8d4c4;
-  border-color: #d8d4c4;
+  background: #b9a8f5;
+  border-color: #b9a8f5;
+  color: #09022f;
 }
 
+/* "Contattami": contorno bianco → pieno viola chiaro */
 .hero .btn-secondary {
   background: transparent;
   color: #f2f0e8;
-  border-color: #4a4838;
+  border-color: #f2f0e8;
 }
 
 .hero .btn-secondary:hover {
-  background: #f2f0e8;
-  color: #17160f;
-  border-color: #f2f0e8;
+  background: #b9a8f5;
+  border-color: #b9a8f5;
+  color: #09022f;
 }
 
 .btn {
