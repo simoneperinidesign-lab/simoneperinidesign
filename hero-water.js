@@ -18,7 +18,12 @@
   // ---- parametri da tarare --------------------------------------------
   const CFG = {
     style: 'hybrid',    // 'dots' | 'lines' | 'hybrid' (puntini che diventano lineette vicino al cursore)
-    spacing: 16,        // passo della griglia (px) — mobile: +2
+    spacing: 16,        // passo della griglia (px) su uno schermo largo refWidth
+    // — scala con lo schermo: griglia, puntini, lineette e gocce si rimpiccioliscono
+    //   in proporzione alla larghezza (su un telefono ~390px diventano circa il 55%)
+    refWidth: 1440,     //   larghezza di riferimento (px) in cui la scala vale 1
+    minScale: 0.55,     //   scala minima (non scende sotto questo valore)
+    maxScale: 1,        //   scala massima su schermi più larghi di refWidth
     cell: 6,            // risoluzione della simulazione (px per cella)
     damping: 0.985,     // smorzamento per step
     stepsPerSec: 80,    // velocità di propagazione
@@ -45,7 +50,7 @@
     heightGain: 7,      // quanto la cresta illumina/ingrandisce i segni
     shift: 3,           // spostamento max dei segni lungo la pendenza (px)
   };
-
+ 
   const hero = document.getElementById('hero');
   if (!hero) return;
   // Zona d'acqua: un contenitore che avvolge l'hero e (se c'è) la sezione
@@ -64,11 +69,12 @@
   hero.classList.add('hero--live');                                   // spegne la texture statica (vedi style.css)
   const ctx = cv.getContext('2d');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+ 
   let W = 0, H = 0, HH = 0, fadeFrom = 0, fadeTo = 0, dpr = 1, running = true, readyFired = false;
+  let S = 1;                                                          // scala in base alla larghezza (vedi resize)
   // W, H = zona intera · HH = altezza dell'hero · fadeFrom→fadeTo = dove i puntini sfumano
   let t0 = performance.now(), last = t0, acc = 0, nextIdle = 0;
-
+ 
   // ---- superficie d'acqua ---------------------------------------------
   let cols = 0, rows = 0, cur, prv, damp;
   function initWater() {
@@ -101,7 +107,7 @@
     const i = fx | 0, j = fy | 0, u = fx - i, v = fy - j, k = j * cols + i;
     return (cur[k] * (1 - u) + cur[k + 1] * u) * (1 - v) + (cur[k + cols] * (1 - u) + cur[k + cols + 1] * u) * v;
   }
-
+ 
   // ---- puntatore: attrattore + scia -----------------------------------
   const att = { x: 0, y: 0, tx: 0, ty: 0, lastMove: -1e9 };
   const ptr = { x: 0, y: 0, px: null, py: null };
@@ -113,7 +119,7 @@
   });
   zone.addEventListener('pointerleave', () => { ptr.px = null; });
   zone.addEventListener('pointerdown', e => {
-    const [x, y] = local(e); disturb(x, y, CFG.dropAmp, CFG.dropRadius);
+    const [x, y] = local(e); disturb(x, y, CFG.dropAmp, CFG.dropRadius * S);
     att.tx = x; att.ty = y; att.lastMove = performance.now();
   });
   function applyTrail() {
@@ -121,7 +127,7 @@
     const dx = ptr.x - ptr.px, dy = ptr.y - ptr.py, dist = Math.hypot(dx, dy);
     if (dist < 0.5) return;
     const amp = CFG.trailAmp * clamp(dist / 30, 0.1, 1), n = Math.ceil(dist / CFG.cell);
-    for (let s = 1; s <= n; s++) disturb(ptr.px + dx * s / n, ptr.py + dy * s / n, -amp / n * 2, 14);
+    for (let s = 1; s <= n; s++) disturb(ptr.px + dx * s / n, ptr.py + dy * s / n, -amp / n * 2, 14 * S);
     ptr.px = ptr.x; ptr.py = ptr.y;
   }
   function updateAttractor(now) {
@@ -132,7 +138,7 @@
     }
     att.x += (att.tx - att.x) * 0.06; att.y += (att.ty - att.y) * 0.06;
   }
-
+ 
   // ---- helper ---------------------------------------------------------
   const perm = new Uint8Array(512); { const p = [...Array(256).keys()]; for (let i = 255; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [p[i], p[j]] = [p[j], p[i]]; } for (let i = 0; i < 512; i++) perm[i] = p[i & 255]; }
   const G = [[1,1],[-1,1],[1,-1],[-1,-1],[1,0],[-1,0],[0,1],[0,-1]];
@@ -150,51 +156,51 @@
   const COL = Array.from({ length: LV }, (_, i) => { const k = i / (LV - 1);
     return `hsla(${253 - k * 6}, ${95 - k * 10}%, ${80 + k * 15}%, ${0.18 + 0.77 * k})`; }); // #5729fc → lavanda
   const buckets = Array.from({ length: LV }, () => []);
-
+ 
   // ---- disegno --------------------------------------------------------
   function draw(intro, t = 0) {
-    const sp = CFG.spacing + (W < 700 ? 2 : 0), R = Math.hypot(W, HH), Rz = Math.hypot(W, H), cx = W * 0.62, cy = HH * 0.5, e = CFG.cell;
+    const sp = Math.max(8, CFG.spacing * S), R = Math.hypot(W, HH), Rz = Math.hypot(W, H), cx = W * 0.62, cy = HH * 0.5, e = CFG.cell;
     const style = CFG.style;
     ctx.clearRect(0, 0, W, H);
     for (const b of buckets) b.length = 0;
-
+ 
     const yMax = Math.min(H, fadeTo + sp);                          // sotto la sfumatura non disegna nulla
     for (let y = sp / 2; y < yMax; y += sp) for (let x = sp / 2; x < W; x += sp) {
       const dc = Math.hypot(x - cx, y - cy) / (Rz * 0.6);
       const vis = clamp((intro * 1.25 - dc) * 3, 0, 1);
       if (vis <= 0) continue;
-
+ 
       const h = height(x, y);
       const gx = (height(x + e, y) - height(x - e, y)) * 0.5, gy = (height(x, y + e) - height(x, y - e)) * 0.5;
-
+ 
       const dx = att.x - x, dy = att.y - y, d = Math.hypot(dx, dy);
       let f = 1 - clamp(d / (R * 0.4), 0, 1); f *= f;
-
+ 
       const br = CFG.breath ? noise(x * CFG.breathScale + t * 0.045, y * CFG.breathScale - t * 0.03) * CFG.breathAmp : 0;
       const k = clamp(CFG.base + br + f * 0.75 + h * CFG.heightGain, 0, 1) * easeOut(vis);
-      const sx = x - clamp(gx * 60, -CFG.shift, CFG.shift), sy = y - clamp(gy * 60, -CFG.shift, CFG.shift);
+      const sh = CFG.shift * S, sx = x - clamp(gx * 60, -sh, sh), sy = y - clamp(gy * 60, -sh, sh);
       const a = Math.atan2(dy, dx) + Math.PI / 2;
       buckets[Math.round(k * (LV - 1))].push(sx, sy, a, f);
     }
-
+ 
     ctx.lineCap = 'round';
     for (let b = 0; b < LV; b++) {
       const P = buckets[b]; if (!P.length) continue;
       const k = b / (LV - 1);
       ctx.fillStyle = ctx.strokeStyle = COL[b];
-      ctx.lineWidth = 0.7 + k * 0.9;
-      const r = 0.7 + k * 1.5;                      // raggio del puntino
+      ctx.lineWidth = (0.7 + k * 0.9) * Math.max(S, 0.7);
+      const r = (0.7 + k * 1.5) * Math.max(S, 0.7);  // raggio del puntino (scalato, mai sotto il 70%)
       const dots = new Path2D(), lines = new Path2D();
       for (let i = 0; i < P.length; i += 4) {
         const x = P[i], y = P[i + 1], a = P[i + 2], f = P[i + 3];
         // lunghezza: 'lines' sempre lineette; 'hybrid' solo vicino all'attrattore
         const len = style === 'dots' ? 0 : style === 'lines' ? (1.5 + k * sp * 0.55) / 2 : (f * sp * 0.75) / 2;
-        if (len < 1.2) { dots.moveTo(x + r, y); dots.arc(x, y, r, 0, 6.2832); }
+        if (len < 1.2 * S) { dots.moveTo(x + r, y); dots.arc(x, y, r, 0, 6.2832); }
         else { const ux = Math.cos(a) * len, uy = Math.sin(a) * len; lines.moveTo(x - ux, y - uy); lines.lineTo(x + ux, y + uy); }
       }
       ctx.fill(dots); ctx.stroke(lines);
     }
-
+ 
     // Sfumatura: "cancella" gradualmente i puntini da fadeFrom a fadeTo
     if (fadeTo > fadeFrom && fadeFrom < H) {
       const g = ctx.createLinearGradient(0, fadeFrom, 0, fadeTo);
@@ -206,35 +212,36 @@
       ctx.globalCompositeOperation = 'source-over';
     }
   }
-
+ 
   function frame(now) {
     const dt = Math.min((now - last) / 1000, 0.05); last = now;
     const t = (now - t0) / 1000, intro = clamp(t / 1.8, 0, 1.2);
     if (!readyFired && intro > 0.35) { hero.classList.add('is-ready'); readyFired = true; }
-
+ 
     updateAttractor(now);
     applyTrail();
     if (CFG.rain && t > nextIdle) {                                   // pioggia su tutto lo sfondo
       const amp = CFG.rainAmp * (now - att.lastMove > 3000 ? 1 : 0.5), x = rand(W * 0.05, W * 0.95), y = rand(HH * 0.1, fadeTo * 0.92);
-      disturb(x, y, amp, CFG.dropRadius * rand(0.8, 1.3));
+      disturb(x, y, amp, CFG.dropRadius * S * rand(0.8, 1.3));
       if (Math.random() < CFG.rainDouble) {                           // seconda goccia vicina → interferenza
-        const a = rand(0, 6.28), d = rand(60, 140);
-        setTimeout(() => disturb(x + Math.cos(a) * d, y + Math.sin(a) * d, amp * 0.8, CFG.dropRadius), rand(80, 260));
+        const a = rand(0, 6.28), d = rand(60, 140) * S;
+        setTimeout(() => disturb(x + Math.cos(a) * d, y + Math.sin(a) * d, amp * 0.8, CFG.dropRadius * S), rand(80, 260));
       }
       nextIdle = t + rand(...CFG.rainEvery);
     }
     acc += dt * CFG.stepsPerSec;
     let n = 0; while (acc >= 1 && n < 4) { stepWater(); acc -= 1; n++; } if (n === 4) acc = 0;
-
+ 
     draw(intro, t);
     if (running) requestAnimationFrame(frame);
   }
-
+ 
   function resize() {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
     const r = zone.getBoundingClientRect();
     if (Math.abs(r.width - W) < 1 && Math.abs(r.height - H) < 1 && cur) return;
     W = r.width; H = r.height; HH = hero.offsetHeight;
+    S = clamp(W / CFG.refWidth, CFG.minScale, CFG.maxScale);
     fadeFrom = extend ? HH * CFG.fadeStart : H;
     fadeTo = extend ? HH + below.offsetHeight * CFG.fadeEnd : H;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + 'px'; cv.style.height = H + 'px';
@@ -245,9 +252,9 @@
   function start() {
     t0 = last = performance.now(); acc = 0; nextIdle = 2.2; readyFired = false;
     hero.classList.remove('is-ready');
-    initWater(); disturb(W * 0.62, HH * 0.5, CFG.introAmp, CFG.dropRadius * 1.2);
+    initWater(); disturb(W * 0.62, HH * 0.5, CFG.introAmp, CFG.dropRadius * 1.2 * S);
   }
-
+ 
   resize();
   if (reduced) {
     hero.classList.add('is-ready'); initWater(); draw(1.2);
@@ -262,9 +269,10 @@
   hero.querySelectorAll('.btn').forEach(b => b.addEventListener('pointerenter', () => {
     if (!CFG.buttons) return;
     const r = b.getBoundingClientRect(), hr = zone.getBoundingClientRect();
-    disturb(r.left + r.width / 2 - hr.left, r.top + r.height / 2 - hr.top, CFG.buttonAmp, 26);
+    disturb(r.left + r.width / 2 - hr.left, r.top + r.height / 2 - hr.top, CFG.buttonAmp, 26 * S);
   }));
   start();
   requestAnimationFrame(frame);
-
+ 
 })();
+ 
