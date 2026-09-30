@@ -463,7 +463,7 @@ ul {
 
 .project-tile:nth-child(4n+2) {
   grid-column: span 2;
-  grid-row: span 2.5;
+  grid-row: span 3;
 }
 
 /* Copertina DisCover: inquadra la gamba con la cover al centro */
