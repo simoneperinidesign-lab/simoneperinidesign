@@ -463,7 +463,12 @@ ul {
 
 .project-tile:nth-child(4n+2) {
   grid-column: span 2;
-  grid-row: span 2;
+  grid-row: span 2.5;
+}
+
+/* Copertina DisCover: inquadra la gamba con la cover al centro */
+.project-tile img[src*="discover"] {
+  object-position: 55% 65%;
 }
 
 .project-tile:nth-child(4n+3) {
