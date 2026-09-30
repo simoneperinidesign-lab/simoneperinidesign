@@ -469,7 +469,7 @@ ul {
 /* Copertina DisCover: zoom sulla gamba con la cover */
 .project-tile img[src*="discover"] {
   transform: scale(1.8);
-  transform-origin: 55% 60%;
+  transform-origin: 55% 75%;
 }
 
 .project-tile:nth-child(4n+3) {
