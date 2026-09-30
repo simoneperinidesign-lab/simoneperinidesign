@@ -466,9 +466,10 @@ ul {
   grid-row: span 3;
 }
 
-/* Copertina DisCover: inquadra la gamba con la cover al centro */
+/* Copertina DisCover: zoom sulla gamba con la cover */
 .project-tile img[src*="discover"] {
-  object-position: 55% 65%;
+  transform: scale(1.5);
+  transform-origin: 55% 68%;
 }
 
 .project-tile:nth-child(4n+3) {
