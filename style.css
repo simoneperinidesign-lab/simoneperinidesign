@@ -474,7 +474,7 @@ ul {
 
 .project-tile:nth-child(4n+3) {
   grid-column: span 3;
-  grid-row: span 2;
+  grid-row: span 3;
 }
 
 .project-tile:nth-child(4n) {
