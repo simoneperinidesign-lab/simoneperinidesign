@@ -885,3 +885,47 @@
   .p-render--big img,
   .pv-row .p-render--big img { height: 420px; }
 }
+
+/* =====================================================================
+   METAMORFOSI
+   ===================================================================== */
+.pv-hero--meta > img { object-position: 50% 45%; }
+
+.pv-cols { background: var(--ink-deep); color: #f2f0e8; padding: 88px 0; margin: var(--gap) 0; }
+.pv-cols .p-kicker { color: #b9a8f5; }
+.pv-cols h2 { color: #fff; font-size: clamp(1.8rem, 3.5vw, 2.6rem); margin-bottom: 1.2em; }
+.col-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.col-card .p-figure img { aspect-ratio: 9 / 16; }
+.col-card h3 { color: #fff; margin: 1em 0 0.1em; font-size: 1.2rem; }
+.col-big { display: block; font-family: "Archivo", sans-serif; font-weight: 900;
+  font-size: clamp(1.8rem, 3vw, 2.4rem); color: #b9a8f5; line-height: 1.1; margin-bottom: 0.4em; }
+.col-card p { font-size: 0.9rem; line-height: 1.55; color: #e6e3f5; margin: 0; }
+
+.pv-dettagli, .pv-produzione { padding: var(--gap) 0; }
+.pv-produzione h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 0.4em; }
+.inuse-intro { max-width: 640px; margin: 0 0 1.6em; }
+
+.pv-full--wide { aspect-ratio: 21 / 9; object-fit: cover; width: 100%; display: block; }
+
+@media (max-width: 900px) {
+  .col-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+}
+@media (max-width: 720px) {
+  .pv-cols { padding: 56px 0; }
+  .ph-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* =====================================================================
+   RITMO VERTICALE — rifinitura comune a tutti i progetti
+   Tra due sezioni sempre 2 × --gap (88px desktop / 56px mobile).
+   ===================================================================== */
+/* l'ultimo paragrafo di un blocco di testo non aggiunge spazio extra
+   (su mobile il testo va sotto la foto e il margine si sommava) */
+.project-page .pv-text > :last-child { margin-bottom: 0; }
+
+/* Metamorfosi: le tre foto della mostra sono un blocco a sé */
+.project-page .pv-mostra { padding: var(--gap) 0; }
+
+/* spazio prima dei crediti, tranne quando seguono un'altra fascia colorata */
+.project-page .p-credits { margin-top: var(--gap); }
+.project-page .p-press + .p-credits { margin-top: 0; }
