@@ -472,6 +472,12 @@ ul {
   transform-origin: 55% 80%;
 }
 
+/* Copertina Dalí: zoom sulla mascherina */
+.project-tile img[src*="dali"] {
+  transform: scale(1.8);
+  transform-origin: 50% 65%;
+}
+
 .project-tile:nth-child(4n+3) {
   grid-column: span 3;
   grid-row: span 3;
