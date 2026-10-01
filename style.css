@@ -478,6 +478,11 @@ ul {
   transform-origin: 50% 65%;
 }
 
+/* Copertina Metamorfosi: immagine più in basso nel riquadro */
+.project-tile img[src*="metamorfosi"] {
+  object-position: 50% 20%;
+}
+
 .project-tile:nth-child(4n+3) {
   grid-column: span 3;
   grid-row: span 3;
